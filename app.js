@@ -30,7 +30,7 @@ app.use(messageRouter);
 app.use(express.static(path.join(__dirname, "./client/build")));
 
 // Connect to the database
-connectToDatabase() // Call the function
+connectToDatabase(); // Call the function
 
 app.get("*", function (req, res) {
   res.sendFile(path.join(__dirname, "./client/build/index.html"));
