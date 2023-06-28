@@ -10,7 +10,7 @@ const path = require("path");
 app.use(cors());
 app.use(express.json());
 dotenv.config({ path: "./config.env" });
-require("./dbConnection");
+const connectToDatabase = require("./dbConnection"); // Import the function
 app.use(cookieParser());
 
 // Routers
@@ -29,7 +29,9 @@ app.use(messageRouter);
 // Serve static files
 app.use(express.static(path.join(__dirname, "./client/build")));
 
-// Handle all remaining routes by serving the index.html file
+// Connect to the database
+connectToDatabase() // Call the function
+
 app.get("*", function (req, res) {
   res.sendFile(path.join(__dirname, "./client/build/index.html"));
 });
