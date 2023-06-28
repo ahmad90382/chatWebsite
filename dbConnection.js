@@ -7,9 +7,19 @@ const { useEffect } = require("react");
 
 const db = process.env.DATABASE;
 
-mongoose
-  .connect(db)
-  .then(async () => {
-    console.log("Connected!".bgGreen);
-  })
-  .catch(() => console.log("Connection Error!".bgRed));
+const connectToDatabase = async () => {
+  try {
+    const connection = await mongoose.connect(db, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+    console.log("Connected to the database!".bgGreen);
+
+    return connection;
+  } catch (error) {
+    console.log("Error connecting to the database: ", error);
+    throw error;
+  }
+};
+
+module.exports = connectToDatabase;
