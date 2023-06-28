@@ -7,11 +7,10 @@ const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const path = require("path");
 
-const connectToDatabase = require("./dbConnection");
-
 app.use(cors());
 app.use(express.json());
 dotenv.config({ path: "./config.env" });
+require("./dbConnection");
 app.use(cookieParser());
 
 // Routers
@@ -35,14 +34,6 @@ app.get("*", function (req, res) {
   res.sendFile(path.join(__dirname, "./client/build/index.html"));
 });
 
-// Connect to the database and start the server
-connectToDatabase()
-  .then(() => {
-    app.listen(port, () => {
-      console.log(`Listening on port ${port}`.bgGreen);
-    });
-  })
-  .catch((error) => {
-    console.error("Failed to connect to the database:", error);
-    process.exit(1);
-  });
+app.listen(port, () => {
+  console.log(`Listening on port ${port}`.bgGreen);
+});
