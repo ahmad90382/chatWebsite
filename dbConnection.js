@@ -7,7 +7,7 @@ const { useEffect } = require("react");
 
 const db = process.env.DATABASE;
 
-const connectToDatabase = async () => {
+module.exports = async () => {
   try {
     const connection = await mongoose.connect(db, {
       useNewUrlParser: true,
@@ -21,5 +21,3 @@ const connectToDatabase = async () => {
     throw error;
   }
 };
-
-module.exports = connectToDatabase;
